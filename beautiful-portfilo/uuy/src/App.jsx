@@ -8,6 +8,7 @@ import { About } from "./Components/sections/About";
 import { Projects } from "./Components/sections/Projects";
 import "./index.css";
 import { Contact } from "./Components/sections/Contact";
+import { Certificates } from "./Components/sections/Certificates";
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,6 +27,7 @@ function App() {
         <Home />
         <About />
         <Projects />
+        <Certificates />
         <Contact />
       </div>
     </>
