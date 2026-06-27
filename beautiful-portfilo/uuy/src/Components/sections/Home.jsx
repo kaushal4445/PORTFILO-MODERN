@@ -74,7 +74,10 @@ export const Home = () => {
             </a>
 
             <a
-              href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+              // href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+
+                  href="https://drive.google.com/file/d/14stGGAVog3LmUnu2XFF5V_gwCGRn8to3/view?usp=drive_link"
+
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border border-white/10 text-gray-300 py-3 px-7 rounded-full font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/5 hover:border-white/20"

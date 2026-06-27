@@ -92,7 +92,9 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
 
               {/* CTA */}
               <a
-                href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+                // href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+
+                    href="https://drive.google.com/file/d/14stGGAVog3LmUnu2XFF5V_gwCGRn8to3/view?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ml-3 flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 hover:bg-blue-500/20 hover:border-blue-400 hover:text-blue-300 text-xs font-semibold px-4 py-2 rounded-full transition-all duration-200"
@@ -170,7 +172,9 @@ export const Navbar = ({ menuOpen, setMenuOpen }) => {
         ))}
 
         <a
-          href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+          // href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+
+          href="https://drive.google.com/file/d/14stGGAVog3LmUnu2XFF5V_gwCGRn8to3/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => setMenuOpen(false)}

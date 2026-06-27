@@ -165,7 +165,10 @@ export const MobileMenu = ({ menuOpen, setMenuOpen }) => {
 
           {/* Resume CTA */}
           <a
-            href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+            // href="https://drive.google.com/file/d/13x-JnWuqzBewT5fB7NAgbUVX2Gd5O7Gt/view?usp=drive_link"
+
+
+                href="https://drive.google.com/file/d/14stGGAVog3LmUnu2XFF5V_gwCGRn8to3/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
