@@ -3,13 +3,20 @@ import { useState } from "react";
 
 const projects = [
   {
-    title: "Movie App",
+    title: "Fest Flow",
     description:
-      "A dynamic movie discovery platform with real-time search, ratings, and curated watchlists powered by a live movie API.",
-    tech: ["HTML", "CSS", "Tailwind", "React", "JSX"],
-    live: "https://movie-updater.onrender.com/",
-    github: "https://github.com/kaushal4445/Movie-Updater",
+      "FestFlow is a full-stack campus event management platform that provides separate portals for Students, Organizers, and Volunteers.",
+    tech: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "Firebase Authentication", "Firestore", "Firebase Storage", "Vite", "React Router", "Lucide React", "QR Code", "HTML5 QR Scanner"],
+    live: "https://fest-flow-one.vercel.app/",
+    github: "https://github.com/kaushal4445/Collage-event-management",
     featured: true,
+    teamName: "Team PixelPioneers",
+    team: [
+      { name: "Diwarkar Singh", linkedin: "https://www.linkedin.com/in/diiwakar-singh/" },
+      { name: "Ayush Sinha", linkedin: "https://www.linkedin.com/in/ayush-sinha-46a37b365/" },
+      { name: "Divyata", linkedin: "https://www.linkedin.com/in/divyata-1720b737a?utm_source=share_via&utm_content=profile&utm_medium=member_android" },
+      { name: "Yogit Goyal", linkedin: "https://www.linkedin.com/in/yogit-goyal-644821395/?lipi=urn%3Ali%3Apage%3Ad_flagship3_feed%3BJiucoBGhQJu0t8Z1qt%2B2uA%3D%3D" },
+    ],
   },
   {
     title: "Dynamic Form Builder",
@@ -27,6 +34,15 @@ const projects = [
     tech: ["React", "Vite", "Supabase", "Tailwind CSS"],
     live: "https://smart-campus-utility-app-readynest.vercel.app/",
     github: "https://github.com/kaushal4445/SMART_CAMPUS_UTILITY_APP-ReadynestWeek2",
+    featured: true,
+  },
+  {
+    title: "Movie App",
+    description:
+      "A dynamic movie discovery platform with real-time search, ratings, and curated watchlists powered by a live movie API.",
+    tech: ["HTML", "CSS", "Tailwind", "React", "JSX"],
+    live: "https://movie-updater.onrender.com/",
+    github: "https://github.com/kaushal4445/Movie-Updater",
     featured: true,
   },
   {
@@ -61,22 +77,6 @@ const projects = [
     live: "https://transcendent-dolphin-cc43e6.netlify.app/",
     github: "https://github.com/KAUSHAL265/amozon-project",
   },
-  // {
-  //   title: "Todo List",
-  //   description:
-  //     "Minimalist task manager with add, complete, and delete functionality — persisted across sessions.",
-  //   tech: ["HTML", "CSS", "JavaScript"],
-  //   live: "https://gleaming-gecko-c808de.netlify.app/",
-  //   github: "https://github.com/yourusername/todo-list",
-  // },
-  // {
-  //   title: "Ludo Board",
-  //   description:
-  //     "Interactive digital Ludo board game with turn-based logic, animated dice rolls, and multi-player support.",
-  //   tech: ["HTML", "CSS", "JavaScript"],
-  //   live: "https://gleaming-gecko-c808de.netlify.app/",
-  //   github: "https://github.com/yourusername/ludo-board",
-  // },
   {
     title: "Random Joke Generator",
     description:
@@ -105,6 +105,57 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
+const StarIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+);
+
+const LinkedInIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452z" />
+  </svg>
+);
+
+const PlusIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg>
+);
+
+const ComingSoonCard = () => (
+  <div
+    className="
+      group relative flex flex-col items-center justify-center h-full min-h-[240px]
+      rounded-2xl border-2 border-dashed border-blue-500/25
+      bg-gradient-to-br from-blue-950/40 via-[#080d1a] to-cyan-950/20
+      hover:border-blue-400/60
+      hover:shadow-[0_0_40px_rgba(59,130,246,0.25)]
+      transition-all duration-500 p-6 text-center overflow-hidden
+    "
+  >
+    {/* Soft glow blobs */}
+    <div className="absolute -top-8 -left-8 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/30 transition-colors duration-500" />
+    <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-cyan-400/20 rounded-full blur-2xl group-hover:bg-cyan-400/30 transition-colors duration-500" />
+
+    <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-blue-500/20 to-cyan-400/10 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4 group-hover:scale-110 group-hover:rotate-90 transition-all duration-500 shadow-[0_0_20px_rgba(59,130,246,0.15)]">
+      <PlusIcon />
+    </div>
+    <p className="relative bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent text-base font-bold">
+      More Projects
+    </p>
+    <p className="relative text-gray-500 text-xs mt-1.5 tracking-wide uppercase">
+      Coming soon
+    </p>
+    <span className="relative mt-3 flex gap-1">
+      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/70 animate-pulse" />
+      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50 animate-pulse [animation-delay:150ms]" />
+      <span className="w-1.5 h-1.5 rounded-full bg-blue-400/30 animate-pulse [animation-delay:300ms]" />
+    </span>
+  </div>
+);
+
 const ImageSkeleton = () => (
   <div className="w-full h-full bg-white/5 animate-pulse flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white/10">
@@ -115,12 +166,19 @@ const ImageSkeleton = () => (
   </div>
 );
 
-const ProjectImage = ({ url, title }) => {
+const ProjectImage = ({ url, title, featured }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
   return (
     <div className="relative w-full overflow-hidden bg-[#0a0f1e]" style={{ paddingBottom: "56.25%" }}>
+      {/* Featured label */}
+      {featured && (
+        <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1 bg-blue-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full shadow-lg">
+          <StarIcon /> Featured
+        </div>
+      )}
+
       <div className="absolute inset-0">
         {!loaded && !error && <ImageSkeleton />}
         {error ? (
@@ -163,7 +221,7 @@ const ProjectCard = ({ project, featured = false }) => {
   return (
     <div
       className={`
-        group relative flex flex-col
+        group relative flex flex-col h-full
         rounded-2xl border border-white/10 bg-[#080d1a]
         overflow-hidden
         hover:-translate-y-1.5 hover:border-blue-500/40
@@ -175,7 +233,7 @@ const ProjectCard = ({ project, featured = false }) => {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
       {/* Screenshot */}
-      <ProjectImage url={project.live} title={project.title} />
+      <ProjectImage url={project.live} title={project.title} featured={featured} />
 
       {/* Card body */}
       <div className={`flex flex-col flex-1 ${featured ? "p-5" : "p-4"}`}>
@@ -211,12 +269,35 @@ const ProjectCard = ({ project, featured = false }) => {
           </div>
         </div>
 
-        <p className="text-gray-400 text-xs leading-relaxed mb-3 flex-1">
+        <p className="text-gray-400 text-xs leading-relaxed mb-3">
           {project.description}
         </p>
 
+        {/* Team members */}
+        {project.team && project.team.length > 0 && (
+          <div className="mb-3">
+            <p className="text-gray-500 text-[10px] font-semibold uppercase tracking-wide mb-1.5">
+              {project.teamName || "Team"}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {project.team.map((member, i) => (
+                <a
+                  key={i}
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
+                >
+                  <LinkedInIcon />
+                  {member.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Tech badges */}
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 content-start mt-auto pt-3 border-t border-white/5">
           {project.tech.map((tech, i) => (
             <span
               key={i}
@@ -258,18 +339,19 @@ export const Projects = () => {
             </div>
           </div>
 
-          {/* Featured */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+          {/* Featured — equal height row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 items-stretch">
             {featured.map((project, i) => (
               <ProjectCard key={i} project={project} featured />
             ))}
           </div>
 
-          {/* Rest */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {/* Rest — equal height rows */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
             {rest.map((project, i) => (
               <ProjectCard key={i} project={project} />
             ))}
+            <ComingSoonCard />
           </div>
 
           {/* Footer CTA */}
