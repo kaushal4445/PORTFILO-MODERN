@@ -46,22 +46,56 @@ const projects = [
     featured: true,
   },
   {
-    title: "TeamSync – Real-Time Collaborative Workspace Platform",
-    description:
-      "TeamSync is a full-stack collaboration platform for teams that need shared workspaces, documents, chat, scheduling, notifications, analytics, and file management in one place. The project now includes real-time collaborative document editing, live collaborator presence, live cursor tracking, safer concurrent edit handling, and reliable autosave/sync behavior.",
-    tech: {
-      frontend: ["React + Vite", "React Router DOM", "Tailwind CSS", "Socket.IO Client", "React Hot Toast", "React Icons", "Recharts", "Framer Motion"],
-      backend: ["Node.js", "Express.js", "MongoDB + Mongoose", "Socket.IO", "JWT + Cookie Parser", "Cloudinary + Multer", "PDFKit"],
-    },
-    live: "https://teamsync-00p7.onrender.com/",
-    github: "https://github.com/kaushal4445/SyncSpace_ReadyNestWeek4",
-    featured: true,
-    teamName: "Team",
-    team: [
-      { name: "Kaushal", role: "Frontend", linkedin: "https://www.linkedin.com/in/kaushal-kaushal-0265b9308/" },
-      { name: "Prem Dogra", role: "Backend", linkedin: "https://www.linkedin.com/in/prem-dogra-b76109338/" },
+  title: "TeamSync – Real-Time Collaborative Workspace Platform",
+  description:
+    "TeamSync is a full-stack collaboration platform for teams that need shared workspaces, documents, chat, scheduling, notifications, analytics, and file management in one place. The project now includes real-time collaborative document editing, live collaborator presence, live cursor tracking, safer concurrent edit handling, and reliable autosave/sync behavior.",
+
+  tech: {
+    frontend: [
+      "React + Vite",
+      "React Router DOM",
+      "Tailwind CSS",
+      "Socket.IO Client",
+      "React Hot Toast",
+      "React Icons",
+      "Recharts",
+      "Framer Motion",
+    ],
+    backend: [
+      "Node.js",
+      "Express.js",
+      "MongoDB + Mongoose",
+      "Socket.IO",
+      "JWT + Cookie Parser",
+      "Cloudinary + Multer",
+      "PDFKit",
     ],
   },
+
+  image: "/teamsync.png.png",
+
+  live: "https://teamsync-00p7.onrender.com/",
+  github: "https://github.com/kaushal4445/SyncSpace_ReadyNestWeek4",
+
+  featured: true,
+
+  teamName: "Team",
+
+  team: [
+    {
+      name: "Kaushal",
+      role: "Frontend",
+      linkedin:
+        "https://www.linkedin.com/in/kaushal-kaushal-0265b9308/",
+    },
+    {
+      name: "Prem Dogra",
+      role: "Backend",
+      linkedin:
+        "https://www.linkedin.com/in/prem-dogra-b76109338/",
+    },
+  ],
+},,
   {
     title: "Movie App",
     description:
@@ -192,51 +226,59 @@ const ImageSkeleton = () => (
   </div>
 );
 
-const ProjectImage = ({ url, title, featured }) => {
+const ProjectImage = ({ url, image, title, featured }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
+  const imageSrc = image || screenshotUrl(url);
+
   return (
-    <div className="relative w-full overflow-hidden bg-[#0a0f1e]" style={{ paddingBottom: "56.25%" }}>
-      {/* Featured label */}
+    <div
+      className="relative w-full overflow-hidden bg-[#0a0f1e]"
+      style={{ paddingBottom: "56.25%" }}
+    >
       {featured && (
         <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1 bg-blue-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full shadow-lg">
-          <StarIcon /> Featured
+          <StarIcon />
+          Featured
         </div>
       )}
 
       <div className="absolute inset-0">
         {!loaded && !error && <ImageSkeleton />}
+
         {error ? (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-900/20 to-cyan-900/10 gap-3">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center text-blue-400 font-bold text-xl">
               {title[0]}
             </div>
-            <span className="text-gray-600 text-xs font-medium">{title}</span>
+
+            <span className="text-gray-600 text-xs font-medium">
+              {title}
+            </span>
           </div>
         ) : (
           <img
-            src={screenshotUrl(url)}
-            alt={`${title} preview`}
+            src={imageSrc}
+            alt={title}
             className={`w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105 ${
               loaded ? "opacity-100" : "opacity-0"
             }`}
             onLoad={() => setLoaded(true)}
-            onError={() => { setError(true); }}
+            onError={() => setError(true)}
           />
         )}
       </div>
 
-      {/* Hover overlay with action buttons */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-end p-3 gap-2">
         <a
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
           className="flex items-center gap-1.5 bg-blue-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-blue-500 transition shadow-lg"
         >
-          <ExternalLinkIcon /> Preview
+          <ExternalLinkIcon />
+          Preview
         </a>
       </div>
     </div>
@@ -353,7 +395,12 @@ const ProjectCard = ({ project, featured = false }) => {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
       {/* Screenshot */}
-      <ProjectImage url={project.live} title={project.title} featured={featured} />
+     <ProjectImage
+    url={project.live}
+    image={project.image}
+    title={project.title}
+    featured={featured}
+/>
 
       {/* Card body */}
       <div className={`flex flex-col flex-1 ${featured ? "p-5" : "p-4"}`}>
