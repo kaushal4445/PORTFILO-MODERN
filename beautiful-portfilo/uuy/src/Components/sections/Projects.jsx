@@ -416,9 +416,9 @@ export const Projects = () => {
       id="projects"
       className="min-h-screen flex items-center justify-center py-20"
     >
-      <RevealOnScroll>
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Header */}
+      <div className="max-w-6xl mx-auto px-4">
+        {/* Header — reveals on its own, independent of the (very tall) grids below */}
+        <RevealOnScroll>
           <div className="text-center mb-14">
             <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">
               Portfolio
@@ -433,23 +433,32 @@ export const Projects = () => {
               <div className="h-px w-24 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
             </div>
           </div>
+        </RevealOnScroll>
 
-          {/* Featured — equal width & height grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 auto-rows-fr">
-            {featured.map((project, i) => (
-              <ProjectCard key={i} project={project} featured />
-            ))}
-          </div>
+        {/* Featured — each card reveals independently so a tall mobile grid
+            doesn't stop the IntersectionObserver threshold from ever being met */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 auto-rows-fr">
+          {featured.map((project, i) => (
+            <RevealOnScroll key={project.title} delay={(i % 4) * 80}>
+              <ProjectCard project={project} featured />
+            </RevealOnScroll>
+          ))}
+        </div>
 
-          {/* Rest — same column breakpoints as featured for consistent widths, equal-height rows */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
-            {rest.map((project, i) => (
-              <ProjectCard key={i} project={project} />
-            ))}
+        {/* Rest — same per-card reveal pattern */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
+          {rest.map((project, i) => (
+            <RevealOnScroll key={project.title} delay={(i % 4) * 80}>
+              <ProjectCard project={project} />
+            </RevealOnScroll>
+          ))}
+          <RevealOnScroll delay={(rest.length % 4) * 80}>
             <ComingSoonCard />
-          </div>
+          </RevealOnScroll>
+        </div>
 
-          {/* Footer CTA */}
+        {/* Footer CTA */}
+        <RevealOnScroll>
           <div className="text-center mt-14">
             <a
               href="https://github.com/kaushal4445"
@@ -461,8 +470,8 @@ export const Projects = () => {
               View All on GitHub
             </a>
           </div>
-        </div>
-      </RevealOnScroll>
+        </RevealOnScroll>
+      </div>
     </section>
   );
 };

@@ -10,7 +10,10 @@ export const RevealOnScroll = ({ children, delay = 0, direction = "up" }) => {
           ref.current.classList.add("reveal-visible");
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      // threshold lowered from 0.15 -> 0.05: with 0.15, an element taller than
+      // ~6-7x the viewport (e.g. a full mobile-stacked project grid) could
+      // never satisfy the ratio, so it would stay invisible forever.
+      { threshold: 0.05, rootMargin: "0px 0px -60px 0px" }
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -44,7 +47,7 @@ export const RevealOnScroll = ({ children, delay = 0, direction = "up" }) => {
           transform: none !important;
         }
       `}</style>
-      <div ref={ref} className="reveal-base">
+      <div ref={ref} className="reveal-base h-full">
         {children}
       </div>
     </>
