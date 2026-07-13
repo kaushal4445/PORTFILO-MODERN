@@ -6,7 +6,10 @@ const projects = [
     title: "Fest Flow",
     description:
       "FestFlow is a full-stack campus event management platform that provides separate portals for Students, Organizers, and Volunteers.",
-    tech: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "Firebase Authentication", "Firestore", "Firebase Storage", "Vite", "React Router", "Lucide React", "QR Code", "HTML5 QR Scanner"],
+    tech: {
+      frontend: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "Vite", "React Router", "Lucide React", "QR Code", "HTML5 QR Scanner"],
+      backend: ["Firebase Authentication", "Firestore", "Firebase Storage"],
+    },
     live: "https://fest-flow-one.vercel.app/",
     github: "https://github.com/kaushal4445/Collage-event-management",
     featured: true,
@@ -22,7 +25,10 @@ const projects = [
     title: "Dynamic Form Builder",
     description:
       "Full-stack platform to create, share, and analyze custom forms without coding. Includes QR sharing, submission analytics, and Razorpay payments.",
-    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Razorpay"],
+    tech: {
+      frontend: ["React.js"],
+      backend: ["Node.js", "Express.js", "MongoDB", "JWT", "Razorpay"],
+    },
     live: "https://readynest-week1-dynamic-form-builde.vercel.app/",
     github: "https://github.com/kaushal4445/ReadynestWeek1--Dynamic_Form_Builder",
     featured: true,
@@ -31,10 +37,30 @@ const projects = [
     title: "Smart Campus Utility App",
     description:
       "Campus life management for students and admins — timetables, assignments, CGPA tracker, attendance, goals, and an admin dashboard.",
-    tech: ["React", "Vite", "Supabase", "Tailwind CSS"],
+    tech: {
+      frontend: ["React", "Vite", "Tailwind CSS"],
+      backend: ["Supabase"],
+    },
     live: "https://smart-campus-utility-app-readynest.vercel.app/",
     github: "https://github.com/kaushal4445/SMART_CAMPUS_UTILITY_APP-ReadynestWeek2",
     featured: true,
+  },
+  {
+    title: "TeamSync – Real-Time Collaborative Workspace Platform",
+    description:
+      "TeamSync is a full-stack collaboration platform for teams that need shared workspaces, documents, chat, scheduling, notifications, analytics, and file management in one place. The project now includes real-time collaborative document editing, live collaborator presence, live cursor tracking, safer concurrent edit handling, and reliable autosave/sync behavior.",
+    tech: {
+      frontend: ["React + Vite", "React Router DOM", "Tailwind CSS", "Socket.IO Client", "React Hot Toast", "React Icons", "Recharts", "Framer Motion"],
+      backend: ["Node.js", "Express.js", "MongoDB + Mongoose", "Socket.IO", "JWT + Cookie Parser", "Cloudinary + Multer", "PDFKit"],
+    },
+    live: "https://teamsync-00p7.onrender.com/",
+    github: "https://github.com/kaushal4445/SyncSpace_ReadyNestWeek4",
+    featured: true,
+    teamName: "Team",
+    team: [
+      { name: "Kaushal", role: "Frontend", linkedin: "https://www.linkedin.com/in/kaushal-kaushal-0265b9308/" },
+      { name: "Prem Dogra", role: "Backend", linkedin: "https://www.linkedin.com/in/prem-dogra-b76109338/" },
+    ],
   },
   {
     title: "Movie App",
@@ -127,7 +153,7 @@ const PlusIcon = () => (
 const ComingSoonCard = () => (
   <div
     className="
-      group relative flex flex-col items-center justify-center h-full min-h-[240px]
+      group relative flex flex-col items-center justify-center h-full min-h-[420px]
       rounded-2xl border-2 border-dashed border-blue-500/25
       bg-gradient-to-br from-blue-950/40 via-[#080d1a] to-cyan-950/20
       hover:border-blue-400/60
@@ -217,6 +243,100 @@ const ProjectImage = ({ url, title, featured }) => {
   );
 };
 
+// Renders a single row of tech badges, optionally under a small caption label.
+const TechRow = ({ label, items, dotClass }) => (
+  <div className={label ? "mb-2 last:mb-0" : ""}>
+    {label && (
+      <p className="flex items-center gap-1.5 text-gray-500 text-[9px] font-semibold uppercase tracking-wider mb-1">
+        <span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
+        {label}
+      </p>
+    )}
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((tech, i) => (
+        <span
+          key={i}
+          className="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-0.5 px-2 rounded-full text-[10px] font-medium"
+        >
+          {tech}
+        </span>
+      ))}
+    </div>
+  </div>
+);
+
+// Balances tech display: full-stack projects (tech as {frontend, backend})
+// get two clearly labeled sections; single-tier projects (tech as a flat
+// array) get one plain row of badges.
+const TechStack = ({ tech }) => {
+  if (Array.isArray(tech)) {
+    return <TechRow items={tech} />;
+  }
+
+  const { frontend = [], backend = [] } = tech;
+
+  return (
+    <div className="space-y-2">
+      {frontend.length > 0 && (
+        <TechRow label="Frontend" items={frontend} dotClass="bg-blue-400" />
+      )}
+      {backend.length > 0 && (
+        <TechRow label="Backend" items={backend} dotClass="bg-cyan-400" />
+      )}
+    </div>
+  );
+};
+
+// Renders team member credits. If members have a `role` (e.g. Frontend /
+// Backend), each is shown with its role label; otherwise falls back to a
+// flat badge list (used by projects like Fest Flow with an even team).
+const TeamCredits = ({ teamName, team }) => {
+  const hasRoles = team.some((m) => m.role);
+
+  return (
+    <div className="mb-3">
+      <p className="text-gray-500 text-[10px] font-semibold uppercase tracking-wide mb-1.5">
+        {teamName || "Team"}
+      </p>
+
+      {hasRoles ? (
+        <div className="flex flex-wrap gap-2">
+          {team.map((member, i) => (
+            <a
+              key={i}
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
+            >
+              <LinkedInIcon />
+              <span>{member.name}</span>
+              {member.role && (
+                <span className="text-blue-400/80 font-semibold">· {member.role}</span>
+              )}
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-1.5">
+          {team.map((member, i) => (
+            <a
+              key={i}
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
+            >
+              <LinkedInIcon />
+              {member.name}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const ProjectCard = ({ project, featured = false }) => {
   return (
     <div
@@ -269,43 +389,18 @@ const ProjectCard = ({ project, featured = false }) => {
           </div>
         </div>
 
-        <p className="text-gray-400 text-xs leading-relaxed mb-3">
+        <p className={`text-gray-400 text-xs leading-relaxed mb-3 ${featured ? "line-clamp-4" : "line-clamp-3"}`}>
           {project.description}
         </p>
 
         {/* Team members */}
         {project.team && project.team.length > 0 && (
-          <div className="mb-3">
-            <p className="text-gray-500 text-[10px] font-semibold uppercase tracking-wide mb-1.5">
-              {project.teamName || "Team"}
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {project.team.map((member, i) => (
-                <a
-                  key={i}
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
-                >
-                  <LinkedInIcon />
-                  {member.name}
-                </a>
-              ))}
-            </div>
-          </div>
+          <TeamCredits teamName={project.teamName} team={project.team} />
         )}
 
-        {/* Tech badges */}
-        <div className="flex flex-wrap gap-1.5 content-start mt-auto pt-3 border-t border-white/5">
-          {project.tech.map((tech, i) => (
-            <span
-              key={i}
-              className="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-0.5 px-2 rounded-full text-[10px] font-medium"
-            >
-              {tech}
-            </span>
-          ))}
+        {/* Tech badges — balanced Frontend/Backend sections for full-stack projects */}
+        <div className="mt-auto pt-3 border-t border-white/5">
+          <TechStack tech={project.tech} />
         </div>
       </div>
     </div>
@@ -339,15 +434,15 @@ export const Projects = () => {
             </div>
           </div>
 
-          {/* Featured — equal height row */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 items-stretch">
+          {/* Featured — equal width & height grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 auto-rows-fr">
             {featured.map((project, i) => (
               <ProjectCard key={i} project={project} featured />
             ))}
           </div>
 
-          {/* Rest — equal height rows */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 items-stretch">
+          {/* Rest — same column breakpoints as featured for consistent widths, equal-height rows */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
             {rest.map((project, i) => (
               <ProjectCard key={i} project={project} />
             ))}
