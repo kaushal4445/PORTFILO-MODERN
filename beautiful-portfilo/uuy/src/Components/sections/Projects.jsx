@@ -5,10 +5,10 @@ const projects = [
   {
     title: "Fest Flow",
     description:
-      "FestFlow is a full-stack campus event management platform that provides separate portals for Students, Organizers, and Volunteers.",
+      "Full-stack campus event management platform with separate portals for Students, Organizers, and Volunteers.",
     tech: {
       frontend: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "Vite", "React Router", "Lucide React", "QR Code", "HTML5 QR Scanner"],
-      backend: ["Firebase Authentication", "Firestore", "Firebase Storage"],
+      backend: ["Firebase Auth", "Firestore", "Firebase Storage"],
     },
     live: "https://fest-flow-one.vercel.app/",
     github: "https://github.com/kaushal4445/Collage-event-management",
@@ -46,56 +46,23 @@ const projects = [
     featured: true,
   },
   {
-  title: "TeamSync – Real-Time Collaborative Workspace Platform",
-  description:
-    "TeamSync is a full-stack collaboration platform for teams that need shared workspaces, documents, chat, scheduling, notifications, analytics, and file management in one place. The project now includes real-time collaborative document editing, live collaborator presence, live cursor tracking, safer concurrent edit handling, and reliable autosave/sync behavior.",
-
-  tech: {
-    frontend: [
-      "React + Vite",
-      "React Router DOM",
-      "Tailwind CSS",
-      "Socket.IO Client",
-      "React Hot Toast",
-      "React Icons",
-      "Recharts",
-      "Framer Motion",
-    ],
-    backend: [
-      "Node.js",
-      "Express.js",
-      "MongoDB + Mongoose",
-      "Socket.IO",
-      "JWT + Cookie Parser",
-      "Cloudinary + Multer",
-      "PDFKit",
+    title: "TeamSync – Real-Time Collaborative Workspace",
+    description:
+      "Full-stack collaboration platform with shared workspaces, documents, chat, scheduling, notifications, analytics, and file management, including live collaborative editing and presence.",
+    tech: {
+      frontend: ["React + Vite", "React Router", "Tailwind CSS", "Socket.IO Client", "Recharts", "Framer Motion"],
+      backend: ["Node.js", "Express.js", "MongoDB", "Socket.IO", "JWT", "Cloudinary"],
+    },
+    image: "/teamsync.png",
+    live: "https://teamsync-00p7.onrender.com/",
+    github: "https://github.com/kaushal4445/SyncSpace_ReadyNestWeek4",
+    featured: true,
+    teamName: "Team",
+    team: [
+      { name: "Kaushal", role: "Frontend", linkedin: "https://www.linkedin.com/in/kaushal-kaushal-0265b9308/" },
+      { name: "Prem Dogra", role: "Backend", linkedin: "https://www.linkedin.com/in/prem-dogra-b76109338/" },
     ],
   },
-
-  image: "/teamsync.png.png",
-
-  live: "https://teamsync-00p7.onrender.com/",
-  github: "https://github.com/kaushal4445/SyncSpace_ReadyNestWeek4",
-
-  featured: true,
-
-  teamName: "Team",
-
-  team: [
-    {
-      name: "Kaushal",
-      role: "Frontend",
-      linkedin:
-        "https://www.linkedin.com/in/kaushal-kaushal-0265b9308/",
-    },
-    {
-      name: "Prem Dogra",
-      role: "Backend",
-      linkedin:
-        "https://www.linkedin.com/in/prem-dogra-b76109338/",
-    },
-  ],
-},,
   {
     title: "Movie App",
     description:
@@ -184,18 +151,22 @@ const PlusIcon = () => (
   </svg>
 );
 
+// Fixed dimensions every card in the grid shares, so featured and
+// non-featured projects render as identical boxes.
+const CARD_HEIGHT = "h-[26rem]";
+const IMAGE_HEIGHT = "h-44";
+
 const ComingSoonCard = () => (
   <div
-    className="
-      group relative flex flex-col items-center justify-center h-full min-h-[420px]
+    className={`
+      group relative flex flex-col items-center justify-center ${CARD_HEIGHT} w-full
       rounded-2xl border-2 border-dashed border-blue-500/25
       bg-gradient-to-br from-blue-950/40 via-[#080d1a] to-cyan-950/20
       hover:border-blue-400/60
       hover:shadow-[0_0_40px_rgba(59,130,246,0.25)]
       transition-all duration-500 p-6 text-center overflow-hidden
-    "
+    `}
   >
-    {/* Soft glow blobs */}
     <div className="absolute -top-8 -left-8 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/30 transition-colors duration-500" />
     <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-cyan-400/20 rounded-full blur-2xl group-hover:bg-cyan-400/30 transition-colors duration-500" />
 
@@ -219,9 +190,9 @@ const ComingSoonCard = () => (
 const ImageSkeleton = () => (
   <div className="w-full h-full bg-white/5 animate-pulse flex items-center justify-center">
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="text-white/10">
-      <rect x="3" y="3" width="18" height="18" rx="2"/>
-      <circle cx="8.5" cy="8.5" r="1.5"/>
-      <polyline points="21 15 16 10 5 21"/>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="8.5" cy="8.5" r="1.5" />
+      <polyline points="21 15 16 10 5 21" />
     </svg>
   </div>
 );
@@ -233,10 +204,7 @@ const ProjectImage = ({ url, image, title, featured }) => {
   const imageSrc = image || screenshotUrl(url);
 
   return (
-    <div
-      className="relative w-full overflow-hidden bg-[#0a0f1e]"
-      style={{ paddingBottom: "56.25%" }}
-    >
+    <div className={`relative w-full ${IMAGE_HEIGHT} shrink-0 overflow-hidden bg-[#0a0f1e]`}>
       {featured && (
         <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1 bg-blue-500/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full shadow-lg">
           <StarIcon />
@@ -252,10 +220,7 @@ const ProjectImage = ({ url, image, title, featured }) => {
             <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center text-blue-400 font-bold text-xl">
               {title[0]}
             </div>
-
-            <span className="text-gray-600 text-xs font-medium">
-              {title}
-            </span>
+            <span className="text-gray-600 text-xs font-medium">{title}</span>
           </div>
         ) : (
           <img
@@ -285,105 +250,97 @@ const ProjectImage = ({ url, image, title, featured }) => {
   );
 };
 
-// Renders a single row of tech badges, optionally under a small caption label.
-const TechRow = ({ label, items, dotClass }) => (
-  <div className={label ? "mb-2 last:mb-0" : ""}>
-    {label && (
-      <p className="flex items-center gap-1.5 text-gray-500 text-[9px] font-semibold uppercase tracking-wider mb-1">
-        <span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
-        {label}
-      </p>
-    )}
-    <div className="flex flex-wrap gap-1.5">
-      {items.map((tech, i) => (
-        <span
-          key={i}
-          className="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-0.5 px-2 rounded-full text-[10px] font-medium"
-        >
-          {tech}
-        </span>
-      ))}
+// A single row of tech badges, capped so it never grows past two lines.
+const TechRow = ({ label, items, dotClass, max = 4 }) => {
+  const shown = items.slice(0, max);
+  const extra = items.length - shown.length;
+
+  return (
+    <div className={label ? "mb-1.5 last:mb-0" : ""}>
+      {label && (
+        <p className="flex items-center gap-1.5 text-gray-500 text-[9px] font-semibold uppercase tracking-wider mb-1">
+          <span className={`w-1.5 h-1.5 rounded-full ${dotClass}`} />
+          {label}
+        </p>
+      )}
+      <div className="flex flex-wrap gap-1.5">
+        {shown.map((tech, i) => (
+          <span
+            key={i}
+            className="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-0.5 px-2 rounded-full text-[10px] font-medium"
+          >
+            {tech}
+          </span>
+        ))}
+        {extra > 0 && (
+          <span className="text-gray-500 border border-white/10 py-0.5 px-2 rounded-full text-[10px] font-medium">
+            +{extra}
+          </span>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Balances tech display: full-stack projects (tech as {frontend, backend})
-// get two clearly labeled sections; single-tier projects (tech as a flat
-// array) get one plain row of badges.
+// get two clearly labeled, capped rows; single-tier projects (tech as a
+// flat array) get one capped row of badges.
 const TechStack = ({ tech }) => {
   if (Array.isArray(tech)) {
-    return <TechRow items={tech} />;
+    return <TechRow items={tech} max={5} />;
   }
 
   const { frontend = [], backend = [] } = tech;
 
   return (
-    <div className="space-y-2">
-      {frontend.length > 0 && (
-        <TechRow label="Frontend" items={frontend} dotClass="bg-blue-400" />
-      )}
-      {backend.length > 0 && (
-        <TechRow label="Backend" items={backend} dotClass="bg-cyan-400" />
-      )}
+    <div>
+      {frontend.length > 0 && <TechRow label="Frontend" items={frontend} dotClass="bg-blue-400" max={3} />}
+      {backend.length > 0 && <TechRow label="Backend" items={backend} dotClass="bg-cyan-400" max={3} />}
     </div>
   );
 };
 
-// Renders team member credits. If members have a `role` (e.g. Frontend /
-// Backend), each is shown with its role label; otherwise falls back to a
-// flat badge list (used by projects like Fest Flow with an even team).
-const TeamCredits = ({ teamName, team }) => {
-  const hasRoles = team.some((m) => m.role);
+// Renders team member credits on a single capped line, so it never pushes
+// a card past the shared card height.
+const TeamCredits = ({ teamName, team, max = 2 }) => {
+  const shown = team.slice(0, max);
+  const extra = team.length - shown.length;
 
   return (
-    <div className="mb-3">
+    <div className="mb-2">
       <p className="text-gray-500 text-[10px] font-semibold uppercase tracking-wide mb-1.5">
         {teamName || "Team"}
       </p>
 
-      {hasRoles ? (
-        <div className="flex flex-wrap gap-2">
-          {team.map((member, i) => (
-            <a
-              key={i}
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
-            >
-              <LinkedInIcon />
-              <span>{member.name}</span>
-              {member.role && (
-                <span className="text-blue-400/80 font-semibold">· {member.role}</span>
-              )}
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-1.5">
-          {team.map((member, i) => (
-            <a
-              key={i}
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
-            >
-              <LinkedInIcon />
-              {member.name}
-            </a>
-          ))}
-        </div>
-      )}
+      <div className="flex flex-wrap gap-1.5">
+        {shown.map((member, i) => (
+          <a
+            key={i}
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
+          >
+            <LinkedInIcon />
+            <span>{member.name}</span>
+            {member.role && <span className="text-blue-400/80 font-semibold">· {member.role}</span>}
+          </a>
+        ))}
+        {extra > 0 && (
+          <span className="text-gray-500 border border-white/10 py-1 px-2 rounded-full text-[10px] font-medium">
+            +{extra} more
+          </span>
+        )}
+      </div>
     </div>
   );
 };
 
-const ProjectCard = ({ project, featured = false }) => {
+const ProjectCard = ({ project }) => {
   return (
     <div
       className={`
-        group relative flex flex-col h-full
+        group relative flex flex-col ${CARD_HEIGHT} w-full
         rounded-2xl border border-white/10 bg-[#080d1a]
         overflow-hidden
         hover:-translate-y-1.5 hover:border-blue-500/40
@@ -394,24 +351,17 @@ const ProjectCard = ({ project, featured = false }) => {
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
-      {/* Screenshot */}
-     <ProjectImage
-    url={project.live}
-    image={project.image}
-    title={project.title}
-    featured={featured}
-/>
+      <ProjectImage
+        url={project.live}
+        image={project.image}
+        title={project.title}
+        featured={project.featured}
+      />
 
-      {/* Card body */}
-      <div className={`flex flex-col flex-1 ${featured ? "p-5" : "p-4"}`}>
-
-        {/* Title row */}
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3
-            className={`font-bold text-white group-hover:text-blue-300 transition-colors leading-snug ${
-              featured ? "text-base" : "text-sm"
-            }`}
-          >
+      {/* Card body — fixed height budget, everything below is capped or clamped */}
+      <div className="flex flex-col flex-1 min-h-0 p-4">
+        <div className="flex items-start justify-between gap-2 mb-1.5">
+          <h3 className="font-bold text-white group-hover:text-blue-300 transition-colors leading-snug text-sm line-clamp-1">
             {project.title}
           </h3>
           <div className="flex gap-2 shrink-0 mt-0.5">
@@ -436,17 +386,15 @@ const ProjectCard = ({ project, featured = false }) => {
           </div>
         </div>
 
-        <p className={`text-gray-400 text-xs leading-relaxed mb-3 ${featured ? "line-clamp-4" : "line-clamp-3"}`}>
+        <p className="text-gray-400 text-xs leading-relaxed mb-2.5 line-clamp-2">
           {project.description}
         </p>
 
-        {/* Team members */}
         {project.team && project.team.length > 0 && (
           <TeamCredits teamName={project.teamName} team={project.team} />
         )}
 
-        {/* Tech badges — balanced Frontend/Backend sections for full-stack projects */}
-        <div className="mt-auto pt-3 border-t border-white/5">
+        <div className="mt-auto pt-2.5 border-t border-white/5 overflow-hidden">
           <TechStack tech={project.tech} />
         </div>
       </div>
@@ -455,16 +403,9 @@ const ProjectCard = ({ project, featured = false }) => {
 };
 
 export const Projects = () => {
-  const featured = projects.filter((p) => p.featured);
-  const rest = projects.filter((p) => !p.featured);
-
   return (
-    <section
-      id="projects"
-      className="min-h-screen flex items-center justify-center py-20"
-    >
+    <section id="projects" className="min-h-screen flex items-center justify-center py-20">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Header — reveals on its own, independent of the (very tall) grids below */}
         <RevealOnScroll>
           <div className="text-center mb-14">
             <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">
@@ -482,29 +423,19 @@ export const Projects = () => {
           </div>
         </RevealOnScroll>
 
-        {/* Featured — each card reveals independently so a tall mobile grid
-            doesn't stop the IntersectionObserver threshold from ever being met */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 mb-5 auto-rows-fr">
-          {featured.map((project, i) => (
-            <RevealOnScroll key={project.title} delay={(i % 4) * 80}>
-              <ProjectCard project={project} featured />
-            </RevealOnScroll>
-          ))}
-        </div>
-
-        {/* Rest — same per-card reveal pattern */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-fr">
-          {rest.map((project, i) => (
+        {/* One unified grid — every card shares the same fixed size, featured
+            projects are only distinguished by the "Featured" badge, not by size. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {projects.map((project, i) => (
             <RevealOnScroll key={project.title} delay={(i % 4) * 80}>
               <ProjectCard project={project} />
             </RevealOnScroll>
           ))}
-          <RevealOnScroll delay={(rest.length % 4) * 80}>
+          <RevealOnScroll delay={(projects.length % 4) * 80}>
             <ComingSoonCard />
           </RevealOnScroll>
         </div>
 
-        {/* Footer CTA */}
         <RevealOnScroll>
           <div className="text-center mt-14">
             <a
