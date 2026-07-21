@@ -22,6 +22,25 @@ const projects = [
     ],
   },
   {
+    title: "VendorOS",
+    description:
+      "VendorOS is a full-stack SaaS application that brings together order management, team coordination, inventory tracking, GST invoicing, and AI-driven operational insights under one roof — complete with a multi-role authentication system and a subscription-gated feature set..",
+    tech: {
+      frontend: ["React 19", "Next.js 14", "TypeScript", "Tailwind CSS", "Vite", "React Router", "Lucide React", "QR Code", "HTML5 QR Scanner"],
+      backend: ["Node.js", "Express.js", "MongoDB Atlas (Mongoose)", "Firebase Authentication", "Google Gemini AI", "Groq (Whisper voice transcription)", "Razorpay", "Leaflet + OpenStreetMap", "Render (backend hosting)", "Vercel (frontend hosting)"],
+    },
+    live: "https://vendor-os-rho.vercel.app/",
+    github: "https://github.com/gourav112gg/VendorOS/tree/main",
+    featured: true,
+    teamName: "Team Vertex",
+    team: [
+      { name: "Gourav Garg", linkedin: "https://www.linkedin.com/in/gourav-garg-418926304/" },
+      { name: "Surabhi Deora", linkedin: "https://www.linkedin.com/in/surabhi-deora-729aa3375/" },
+      { name: "Suraj Kumar ", linkedin: "https://www.linkedin.com/in/suraj-kumar-b1213734a/" },
+      { name: "Jiya Maurya", linkedin: "https://www.linkedin.com/in/jiya-maurya-407601281/" },
+    ],
+  },
+  {
     title: "Dynamic Form Builder",
     description:
       "Full-stack platform to create, share, and analyze custom forms without coding. Includes QR sharing, submission analytics, and Razorpay payments.",
@@ -151,9 +170,10 @@ const PlusIcon = () => (
   </svg>
 );
 
-// Fixed dimensions every card in the grid shares, so featured and
-// non-featured projects render as identical boxes.
-const CARD_HEIGHT = "h-[26rem]";
+// Every card in the grid shares this as a MINIMUM height, not a fixed one —
+// cards with more tags/team members grow, and CSS grid auto-aligns each row
+// to the tallest card in it, so nothing looks lopsided.
+const CARD_HEIGHT = "min-h-[26rem]";
 const IMAGE_HEIGHT = "h-44";
 
 const ComingSoonCard = () => (
@@ -218,7 +238,7 @@ const ProjectImage = ({ url, image, title, featured }) => {
         {error ? (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-900/20 to-cyan-900/10 gap-3">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/25 flex items-center justify-center text-blue-400 font-bold text-xl">
-              {title[0]}
+              {title?.[0] || "?"}
             </div>
             <span className="text-gray-600 text-xs font-medium">{title}</span>
           </div>
@@ -236,24 +256,24 @@ const ProjectImage = ({ url, image, title, featured }) => {
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-end p-3 gap-2">
-        <a
-          href={url}
+        
+         <a href={url}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 bg-blue-500/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full hover:bg-blue-500 transition shadow-lg"
-        >
+         >
           <ExternalLinkIcon />
           Preview
         </a>
       </div>
     </div>
+    
   );
 };
 
-// A single row of tech badges, capped so it never grows past two lines.
-const TechRow = ({ label, items, dotClass, max = 4 }) => {
-  const shown = items.slice(0, max);
-  const extra = items.length - shown.length;
+// A single row of tech badges — renders every item, nothing hidden behind a "+N".
+const TechRow = ({ label, items, dotClass }) => {
+  if (!items || items.length === 0) return null;
 
   return (
     <div className={label ? "mb-1.5 last:mb-0" : ""}>
@@ -264,7 +284,7 @@ const TechRow = ({ label, items, dotClass, max = 4 }) => {
         </p>
       )}
       <div className="flex flex-wrap gap-1.5">
-        {shown.map((tech, i) => (
+        {items.map((tech, i) => (
           <span
             key={i}
             className="bg-blue-500/10 text-blue-400 border border-blue-500/20 py-0.5 px-2 rounded-full text-[10px] font-medium"
@@ -272,39 +292,33 @@ const TechRow = ({ label, items, dotClass, max = 4 }) => {
             {tech}
           </span>
         ))}
-        {extra > 0 && (
-          <span className="text-gray-500 border border-white/10 py-0.5 px-2 rounded-full text-[10px] font-medium">
-            +{extra}
-          </span>
-        )}
       </div>
     </div>
   );
 };
 
-// Balances tech display: full-stack projects (tech as {frontend, backend})
-// get two clearly labeled, capped rows; single-tier projects (tech as a
-// flat array) get one capped row of badges.
+// Full-stack projects (tech as {frontend, backend}) get two labeled rows;
+// single-tier projects (tech as a flat array) get one row. All tags show.
 const TechStack = ({ tech }) => {
+  if (!tech) return null;
+
   if (Array.isArray(tech)) {
-    return <TechRow items={tech} max={5} />;
+    return <TechRow items={tech} />;
   }
 
   const { frontend = [], backend = [] } = tech;
 
   return (
     <div>
-      {frontend.length > 0 && <TechRow label="Frontend" items={frontend} dotClass="bg-blue-400" max={3} />}
-      {backend.length > 0 && <TechRow label="Backend" items={backend} dotClass="bg-cyan-400" max={3} />}
+      <TechRow label="Frontend" items={frontend} dotClass="bg-blue-400" />
+      <TechRow label="Backend" items={backend} dotClass="bg-cyan-400" />
     </div>
   );
 };
 
-// Renders team member credits on a single capped line, so it never pushes
-// a card past the shared card height.
-const TeamCredits = ({ teamName, team, max = 2 }) => {
-  const shown = team.slice(0, max);
-  const extra = team.length - shown.length;
+// Renders every team member's LinkedIn credit — no "+N more" cutoff.
+const TeamCredits = ({ teamName, team }) => {
+  if (!team || team.length === 0) return null;
 
   return (
     <div className="mb-2">
@@ -313,10 +327,10 @@ const TeamCredits = ({ teamName, team, max = 2 }) => {
       </p>
 
       <div className="flex flex-wrap gap-1.5">
-        {shown.map((member, i) => (
+        {team.map((member, i) => (
           <a
             key={i}
-            href={member.linkedin}
+            href={member.linkedin || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 bg-white/5 hover:bg-blue-500/15 border border-white/10 hover:border-blue-500/30 text-gray-300 hover:text-blue-300 py-1 px-2 rounded-full text-[10px] font-medium transition-colors"
@@ -326,11 +340,6 @@ const TeamCredits = ({ teamName, team, max = 2 }) => {
             {member.role && <span className="text-blue-400/80 font-semibold">· {member.role}</span>}
           </a>
         ))}
-        {extra > 0 && (
-          <span className="text-gray-500 border border-white/10 py-1 px-2 rounded-full text-[10px] font-medium">
-            +{extra} more
-          </span>
-        )}
       </div>
     </div>
   );
@@ -348,7 +357,6 @@ const ProjectCard = ({ project }) => {
         transition-all duration-300
       `}
     >
-      {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
 
       <ProjectImage
@@ -358,31 +366,34 @@ const ProjectCard = ({ project }) => {
         featured={project.featured}
       />
 
-      {/* Card body — fixed height budget, everything below is capped or clamped */}
       <div className="flex flex-col flex-1 min-h-0 p-4">
         <div className="flex items-start justify-between gap-2 mb-1.5">
           <h3 className="font-bold text-white group-hover:text-blue-300 transition-colors leading-snug text-sm line-clamp-1">
             {project.title}
           </h3>
           <div className="flex gap-2 shrink-0 mt-0.5">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 hover:text-white transition-colors"
-              title="GitHub"
-            >
-              <GitHubIcon />
-            </a>
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-500 hover:text-blue-400 transition-colors"
-              title="Live Demo"
-            >
-              <ExternalLinkIcon />
-            </a>
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-white transition-colors"
+                title="GitHub"
+              >
+                <GitHubIcon />
+              </a>
+            )}
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-500 hover:text-blue-400 transition-colors"
+                title="Live Demo"
+              >
+                <ExternalLinkIcon />
+              </a>
+            )}
           </div>
         </div>
 
@@ -390,9 +401,7 @@ const ProjectCard = ({ project }) => {
           {project.description}
         </p>
 
-        {project.team && project.team.length > 0 && (
-          <TeamCredits teamName={project.teamName} team={project.team} />
-        )}
+        <TeamCredits teamName={project.teamName} team={project.team} />
 
         <div className="mt-auto pt-2.5 border-t border-white/5 overflow-hidden">
           <TechStack tech={project.tech} />
@@ -423,9 +432,7 @@ export const Projects = () => {
           </div>
         </RevealOnScroll>
 
-        {/* One unified grid — every card shares the same fixed size, featured
-            projects are only distinguished by the "Featured" badge, not by size. */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
           {projects.map((project, i) => (
             <RevealOnScroll key={project.title} delay={(i % 4) * 80}>
               <ProjectCard project={project} />
